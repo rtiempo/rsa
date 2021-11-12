@@ -96,3 +96,4 @@ const RSA = (p, q, plainText) => {
 
 // change values for checking
 console.log(RSA(11, 13, 'RASTAMAN'));
+console.log(RSA(11, 13, 'ENCRYPTION'));
