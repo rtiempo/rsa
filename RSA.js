@@ -1,3 +1,11 @@
+const { create, all } = require('mathjs');
+
+const config = {
+  number: 'BigNumber',
+  precision: 600,
+};
+const math = create(all, config);
+
 const MIN = 1;
 
 const getPrimes = (min, max) => {
@@ -34,7 +42,9 @@ const Encrypt = (n, e, plainText) => {
   let cipherText = '';
 
   for (let x = 0; x < plainText.length; x++) {
-    cipherText += String.fromCharCode(plainText.charCodeAt(x) ** e % n);
+    cipherText += String.fromCharCode(
+      math.evaluate(`${plainText.charCodeAt(x)} ^ ${e} % ${n}`)
+    );
   }
 
   return cipherText;
@@ -42,9 +52,12 @@ const Encrypt = (n, e, plainText) => {
 
 const Decrypt = (n, d, cipherText) => {
   let decryptedText = '';
+  let u;
 
   for (let x = 0; x < cipherText.length; x++) {
-    decryptedText += String.fromCharCode(cipherText.charCodeAt(x) ** d % n);
+    decryptedText += String.fromCharCode(
+      math.evaluate(`${cipherText.charCodeAt(x)} ^ ${d} % ${n}`)
+    );
   }
 
   return decryptedText;
@@ -66,7 +79,10 @@ const RSA = (p, q, plainText) => {
 
   d = modInverse(e, z);
 
-  console.log(e, d, z);
+  console.log('e: ' + e);
+  console.log('d: ' + d);
+  console.log('n: ' + n);
+  console.log('z: ' + z);
 
   decryptedText = Decrypt(n, d, cipherText);
 
@@ -78,4 +94,5 @@ const RSA = (p, q, plainText) => {
   return response;
 };
 
-console.log(RSA(11, 13, 'uwu'));
+// change values for checking
+console.log(RSA(11, 13, 'RASTAMAN'));
