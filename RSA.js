@@ -29,7 +29,7 @@ const primeCommonFactor = (e, z) => {
   return z % e == 0 ? true : false;
 };
 
-let modInverse = function (a, b) {
+let modInverse = (a, b) => {
   a %= b;
   for (let x = 1; x < b; x++) {
     if ((a * x) % b == 1) {
@@ -52,7 +52,6 @@ const Encrypt = (n, e, plainText) => {
 
 const Decrypt = (n, d, cipherText) => {
   let decryptedText = '';
-  let u;
 
   for (let x = 0; x < cipherText.length; x++) {
     decryptedText += String.fromCharCode(
